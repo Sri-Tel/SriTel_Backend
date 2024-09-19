@@ -12,6 +12,11 @@ spring:
           uri: lb://CUSTOMER-SERVICE  
           predicates:
             - Path=/api/v1/customer/**  
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak.raviyax.site/realms/sritel
 
 logging:
   level:
