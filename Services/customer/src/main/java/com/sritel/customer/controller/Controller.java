@@ -1,7 +1,8 @@
 package com.sritel.customer.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sritel.customer.entity.Customer;
+import com.sritel.customer.enums.UserGroup;
+import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import com.sritel.customer.DTO.CustomerResponse;
 
@@ -12,12 +13,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.sritel.customer.DTO.CustomerRequest;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-
 
 
 @RestController
@@ -28,7 +24,7 @@ public class Controller {
     private final CustomerService service;
 
     @PostMapping
-    public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody @Valid Customer request) {
         return ResponseEntity.ok(service.createCustomer(request));
     }
 
@@ -37,9 +33,22 @@ public class Controller {
         return ResponseEntity.ok(service.updateCustomer(request));
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<CustomerResponse>> getCustomers() {
         return ResponseEntity.ok(service.getAllCustomers());
     }
+
+    @GetMapping("/{user_id}")
+    public ResponseEntity<CustomerResponse> getCustomer(@PathVariable String user_id) {
+        CustomerResponse response = service.getCustomerByID(user_id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("userGroup/{userGroup}")
+    public ResponseEntity<List<Customer>> getCustomerByUserGroup(@PathVariable UserGroup userGroup) {
+        List<Customer> response = service.getCustomerByUserGroup(userGroup);
+        return ResponseEntity.ok(response);
+    }
+
     
 }

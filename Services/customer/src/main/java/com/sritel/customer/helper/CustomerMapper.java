@@ -23,6 +23,6 @@ public class CustomerMapper {
         if (customer == null) {
             return null;
         }
-        return new CustomerResponse(customer.getName(), customer.getSritelNo());
+        return new CustomerResponse(customer.getId(), customer.getName(), customer.getSritelNo());
     }
 }

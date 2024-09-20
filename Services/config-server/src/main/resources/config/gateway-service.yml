@@ -9,9 +9,13 @@ spring:
           enabled: true  
       routes:
         - id: customer-service
-          uri: lb://CUSTOMER-SERVICE  
+          uri: lb:http://CUSTOMER-SERVICE
           predicates:
-            - Path=/api/v1/customer/**  
+            - Path=/api/v1/customer/**
+        - id: billing-service
+          uri: lb:http://BILLING-SERVICE
+          predicates:
+            - Path=/api/v1/billing/**
   security:
     oauth2:
       resourceserver:
