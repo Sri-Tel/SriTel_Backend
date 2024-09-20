@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class CustomerResponse {
     
-
+    private String id;
     private String name;
 
     private String sritelNo;

@@ -1,5 +1,6 @@
 package com.sritel.customer.service;
 
+import com.sritel.customer.enums.UserGroup;
 import org.springframework.stereotype.Service;
 import com.sritel.customer.DTO.CustomerRequest;
 import com.sritel.customer.repository.CustomerRepository; 
@@ -18,9 +19,18 @@ public class CustomerService {
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
 
-    public String createCustomer(CustomerRequest request) {
-       var customer = repository.save(mapper.toCustomer(request));
-         return customer.getId();
+//    public String createCustomer(CustomerRequest request) {
+//       var customer = repository.save(mapper.toCustomer(request));
+//         return customer.getId();
+//    }
+
+    public Customer createCustomer(Customer customer) {
+        // Automatically assign the user to a group
+        UserGroup assignedGroup = assignUserGroup();
+        customer.setUserGroup(assignedGroup);
+
+        // Save the new customer to the database
+        return repository.save(customer);
     }
 
     public String updateCustomer(CustomerRequest request) {
@@ -48,5 +58,24 @@ public class CustomerService {
                 .map(mapper::fromCustomer)
                 .collect(Collectors.toList());
     }
-    
+
+    public CustomerResponse getCustomerByID(String userId) {
+        Customer customer = repository.findCustomerById(userId);
+        return mapper.fromCustomer(customer);
+    }
+
+    private UserGroup assignUserGroup() {
+        long group1Count = repository.countByUserGroup("GROUP1");
+        long group2Count = repository.countByUserGroup("GROUP2");
+
+        if (group1Count <= group2Count) {
+            return UserGroup.GROUP1;  // Assign to GROUP1 if it's smaller or equal
+        } else {
+            return UserGroup.GROUP2;  // Otherwise, assign to GROUP2
+        }
+    }
+
+    public List<Customer> getCustomerByUserGroup(UserGroup userGroup) {
+        return repository.findByUserGroup(userGroup);
+    }
 }

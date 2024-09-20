@@ -1,4 +1,5 @@
 package com.sritel.customer.entity;
+import com.sritel.customer.enums.UserGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Customer {
     private String id;
     private String name;
     private String sritelNo;
+    private UserGroup userGroup;
     
     
 }
