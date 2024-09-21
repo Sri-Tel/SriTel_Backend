@@ -23,10 +23,5 @@ public class Service {
     private String serviceName;
     price
     description
-
-    
-
-    
-    
 }
 
