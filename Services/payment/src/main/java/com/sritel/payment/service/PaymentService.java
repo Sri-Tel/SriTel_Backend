@@ -6,12 +6,15 @@ import com.sritel.payment.entity.Bill;
 import com.sritel.payment.entity.Payment;
 import com.sritel.payment.repository.PaymentRepository;
 import com.sritel.payment.repository.BillRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentService {
@@ -33,13 +36,12 @@ public class PaymentService {
 
         Payment payment = Payment.builder()
                 .orderId(paymentDTO.getOrderId())
-                .amount(Double.parseDouble(paymentDTO.getAmount()))  // Convert amount to double
+                .amount(Double.parseDouble(paymentDTO.getAmount()))
                 .hash(paymentDTO.getHash())
-                .paymentStatus("PENDING")  // Set as pending initially
-                .billId(bill.getBillId())  // Link the payment to the bill
+                .paymentStatus("PENDING")
+                .billId(bill.getBillId())
                 .build();
 
-        // Save the payment in the database
         return paymentRepository.save(payment);
     }
 
@@ -51,7 +53,7 @@ public class PaymentService {
         }
 
         Payment payment = paymentOptional.get();
-        if ("2".equals(statusCode)) {  // Status code 2 indicates success
+        if ("2".equals(statusCode)) {
             payment.setPaymentStatus("SUCCESS");
 
             // Update the associated bill to "PAID"
@@ -85,29 +87,32 @@ public class PaymentService {
     }
 
     public BillDTO getBillById(String billId) {
-        Optional<Bill> billOptional = billRepository.findById(billId);
+        ObjectId objectId;
+        try {
+            objectId = new ObjectId(billId);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid Bill ID format: " + billId);
+        }
+
+        Optional<Bill> billOptional = billRepository.findById(objectId.toString());
 
         if (billOptional.isEmpty()) {
             throw new RuntimeException("Bill not found for ID: " + billId);
         }
-
-        System.out.println("Bill found for ID: " + billId);
 
         Bill bill = billOptional.get();
 
         BillDTO billDTO = new BillDTO();
         billDTO.setBillId(bill.getBillId());
         billDTO.setUserId(bill.getUserId());
-
-        BigDecimal amount = new BigDecimal(bill.getAmount()).setScale(6, RoundingMode.HALF_UP);
-        billDTO.setAmount(amount.toString());
-
+        billDTO.setAmount(bill.getAmount());
         billDTO.setStatus(bill.getStatus());
         billDTO.setBillingDate(bill.getBillingDate());
         billDTO.setDueDate(bill.getDueDate());
 
         return billDTO;
     }
+
 
     public void updateBillStatus(String billId, String status) {
         Optional<Bill> billOptional = billRepository.findById(billId);
@@ -120,4 +125,43 @@ public class PaymentService {
         billRepository.save(bill);
     }
 
+    public List<BillDTO> getAllBills() {
+        List<Bill> bills = billRepository.findAll();
+
+        return bills.stream().map(bill -> BillDTO.builder()
+                        .billId(bill.getBillId())
+                        .userId(bill.getUserId())
+                        .amount(bill.getAmount())
+                        .status(bill.getStatus())
+                        .billingDate(bill.getBillingDate())
+                        .dueDate(bill.getDueDate())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+
+    //Create a payment DTO from amount and billDTO
+    public PaymentDTO createPaymentDTO(String amount, BillDTO billDTO) {
+        return PaymentDTO.builder()
+                .orderId(Long.toString(System.currentTimeMillis()))
+                .amount(amount)
+                .paymentStatus("PENDING")
+                .billId(billDTO.getBillId())
+                .build();
+    }
+
+    //Create a Payment object from the PaymentDTO
+    public Payment createPayment(PaymentDTO paymentDTO) {
+        return Payment.builder()
+                .orderId(paymentDTO.getOrderId())
+                .amount(Double.parseDouble(paymentDTO.getAmount()))
+                .paymentStatus(paymentDTO.getPaymentStatus())
+                .billId(paymentDTO.getBillId())
+                .build();
+    }
+
+    //Save the payment details to the database
+    public Payment savePayment(Payment payment) {
+        return paymentRepository.save(payment);
+    }
 }
