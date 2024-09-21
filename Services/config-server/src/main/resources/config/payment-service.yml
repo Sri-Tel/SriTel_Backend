@@ -1,7 +1,11 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/payment
+      uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/billing
+      databases:
+        billing: billing
+        customer: customer
+
 server:
   port: 8099
 payhere:

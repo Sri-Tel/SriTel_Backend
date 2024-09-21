@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+
 public class BillDTO {
     private String billId;
     private String amount;

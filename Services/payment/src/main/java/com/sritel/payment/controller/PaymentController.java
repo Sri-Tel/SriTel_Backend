@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,6 +28,25 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
+    // Get bill by billId
+    @GetMapping("/bill/{billId}")
+    public ResponseEntity<?> getBillById(@PathVariable String billId) {
+        try {
+            BillDTO billDTO = paymentService.getBillById(billId);
+            return ResponseEntity.ok(billDTO);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Bill not found");
+        }
+    }
+
+    // Get all bills
+    @GetMapping("/bills")
+    public ResponseEntity<List<BillDTO>> getAllBills() {
+        List<BillDTO> bills = paymentService.getAllBills();
+        return ResponseEntity.ok(bills);
+    }
+
+    // Process payment
     @PostMapping("/processPayment")
     public ResponseEntity<?> processPayment(@RequestBody Map<String, String> paymentData) {
 
@@ -60,7 +80,8 @@ public class PaymentController {
                 return ResponseEntity.ok("Bill partially paid with amount: " + amount);
                 //Add the partial payment to the user's account
             }
-        } else {
+        }
+        else {
             paymentService.updateBillStatus(billId, "PAID");
             return ResponseEntity.ok("Bill successfully paid with amount: " + amount);
         }
