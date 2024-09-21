@@ -12,6 +12,7 @@ spring:
           uri: lb://CUSTOMER-SERVICE  
           predicates:
             - Path=/api/v1/customer/**  
+        -
   security:
     oauth2:
       resourceserver:
