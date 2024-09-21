@@ -1,5 +1,5 @@
-package com.sritel.customer.entity;
-import com.sritel.customer.enums.UserGroup;
+package com.sritel.sritel_services.entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,14 +15,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @Getter
 @Setter
-@Document(collection = "customer")
-public class Customer {
+@Document(collection = "services")
+public class Service {
 
     @Id
     private String id;
-    private String name;
-    private String sritelNo;
-    private UserGroup userGroup;
+    private String serviceName;
     
     
 }
+
