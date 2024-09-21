@@ -33,13 +33,12 @@ public class PaymentService {
 
         Payment payment = Payment.builder()
                 .orderId(paymentDTO.getOrderId())
-                .amount(Double.parseDouble(paymentDTO.getAmount()))  // Convert amount to double
+                .amount(Double.parseDouble(paymentDTO.getAmount()))
                 .hash(paymentDTO.getHash())
-                .paymentStatus("PENDING")  // Set as pending initially
-                .billId(bill.getBillId())  // Link the payment to the bill
+                .paymentStatus("PENDING")
+                .billId(bill.getBillId())
                 .build();
 
-        // Save the payment in the database
         return paymentRepository.save(payment);
     }
 
@@ -51,7 +50,7 @@ public class PaymentService {
         }
 
         Payment payment = paymentOptional.get();
-        if ("2".equals(statusCode)) {  // Status code 2 indicates success
+        if ("2".equals(statusCode)) {
             payment.setPaymentStatus("SUCCESS");
 
             // Update the associated bill to "PAID"
