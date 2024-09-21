@@ -21,6 +21,11 @@ public class Service {
     @Id
     private String id;
     private String serviceName;
+    price
+    description
+
+    
+
     
     
 }

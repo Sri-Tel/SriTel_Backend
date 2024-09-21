@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class Controller {
 
+    
     private final CustomersServiceService service;
 
     @PostMapping("/addCustomerService")
@@ -20,6 +21,12 @@ public class Controller {
         return ResponseEntity.ok(service.addCustomerService(customersService));
     }
   
+    // custometr id eka awama services history @getmaping (/getservices) (services + customer service dto)
+    //customer id eka ewwama service active or inactive @postmapping (object customer, service id, status)
+
+
+
+    
     
     
 }
