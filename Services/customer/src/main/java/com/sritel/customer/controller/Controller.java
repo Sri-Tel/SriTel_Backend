@@ -38,9 +38,9 @@ public class Controller {
         return ResponseEntity.ok(service.getAllCustomers());
     }
 
-    @GetMapping("/{user_id}")
-    public ResponseEntity<CustomerResponse> getCustomer(@PathVariable String user_id) {
-        CustomerResponse response = service.getCustomerByID(user_id);
+    @GetMapping("/{email}")
+    public ResponseEntity<CustomerResponse> getCustomer(@PathVariable String email) {
+        CustomerResponse response = service.getCustomerByID(email);
         return ResponseEntity.ok(response);
     }
 

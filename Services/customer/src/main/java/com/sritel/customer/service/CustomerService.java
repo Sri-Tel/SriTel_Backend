@@ -19,10 +19,7 @@ public class CustomerService {
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
 
-//    public String createCustomer(CustomerRequest request) {
-//       var customer = repository.save(mapper.toCustomer(request));
-//         return customer.getId();
-//    }
+
 
     public Customer createCustomer(Customer customer) {
         // Automatically assign the user to a group
@@ -43,8 +40,8 @@ public class CustomerService {
     }
 
     private void mergeCustomer(Customer customer, CustomerRequest request) {
-       if(request.getName() != null) {
-           customer.setName(request.getName());
+       if(request.getEmail() != null) {
+           customer.setEmail(request.getEmail());
            
        }
          if(request.getSritelNo() != null) {
@@ -59,8 +56,8 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public CustomerResponse getCustomerByID(String userId) {
-        Customer customer = repository.findCustomerById(userId);
+    public CustomerResponse getCustomerByID(String email) {
+        Customer customer = repository.findCustomerById(email);
         return mapper.fromCustomer(customer);
     }
 

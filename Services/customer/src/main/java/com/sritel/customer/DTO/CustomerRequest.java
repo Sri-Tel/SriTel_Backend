@@ -14,7 +14,7 @@ import lombok.Setter;
 public class CustomerRequest {
     
     @NotNull(message = "Name cannot be null")
-    private String name;
+    private String email;
     @NotNull(message = "SritelNo cannot be null")
     private String sritelNo;
     

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {
-    Customer findCustomerById(String userId);
+    Customer findCustomerById(String email);
 
     long countByUserGroup(String group1);
 

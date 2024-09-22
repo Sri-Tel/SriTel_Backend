@@ -14,7 +14,7 @@ public class CustomerMapper {
             return null;
         }
         return Customer.builder()
-                .name(request.getName())
+                .email(request.getEmail())
                 .sritelNo(request.getSritelNo())
                 .build();
     }
@@ -23,6 +23,6 @@ public class CustomerMapper {
         if (customer == null) {
             return null;
         }
-        return new CustomerResponse(customer.getId(), customer.getName(), customer.getSritelNo());
+        return new CustomerResponse(customer.getId(), customer.getEmail(), customer.getSritelNo());
     }
 }
