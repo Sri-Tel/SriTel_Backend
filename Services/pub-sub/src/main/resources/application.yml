@@ -11,3 +11,6 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     template:
       default-topic: billing-topic
+
+server:
+  port: 8989

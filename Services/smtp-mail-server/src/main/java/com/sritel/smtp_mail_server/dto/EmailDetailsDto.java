@@ -1,3 +1,7 @@
+package com.sritel.smtp_mail_server.dto;
+
+import lombok.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
