@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/billing
+      databases:
+        billing: billing
+        customer: customer
+
+server:
+  port: 8099
+payhere:
+  merchant:
+    id: 1226457
+    secret: Mzk1NTA4MDI3NjUzNDU4ODA2MDIyMjEyMDMyMzIyMDUxMjI5MzY5

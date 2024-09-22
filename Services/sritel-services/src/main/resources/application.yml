@@ -1,9 +1,6 @@
 spring:
+    config:
+        import: optional:configserver:http://localhost:8888
     application:
-        name: sritel-services
-    data:
-        mongodb:
-            uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/sritel-services
+        name: sritel-service
 
-server:
-    port: 9001

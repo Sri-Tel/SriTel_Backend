@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 
 
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class Service {
     @Id
     private String id;
     private String serviceName;
-    
-    
+    private BigDecimal price;
+    private String description;
 }
 

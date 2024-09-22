@@ -16,6 +16,14 @@ spring:
           uri: lb:http://BILLING-SERVICE
           predicates:
             - Path=/api/v1/billing/**
+        - id: payment-service
+          uri: lb:http://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/payment/**
+        - id: sritel-service
+          uri: lb:http://SRITEL-SERVICE
+          predicates:
+            - Path=/api/v1/service/**
   security:
     oauth2:
       resourceserver:
