@@ -1,3 +1,14 @@
+package com.sritel.smtp_mail_server.services;
+
+import com.sritel.smtp_mail_server.dto.EmailDetailsDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
 @Service
 public class SendMailService {
 

@@ -1,14 +1,21 @@
+#spring:
+#  config:
+#    import: envproperties.yml
+
 spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: <insert email address here>
-    password: <insert generated passkey here>
+    username: <email address here>
+    password: <app password here>
     properties:
       mail:
         smtp:
           auth: true
-          starttls: enable
+          starttls:
+            enable: true
+
+
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
