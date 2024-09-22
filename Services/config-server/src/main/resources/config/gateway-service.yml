@@ -6,7 +6,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true  
+          enabled: true
       routes:
         - id: customer-service
           uri: lb:http://CUSTOMER-SERVICE
@@ -24,6 +24,20 @@ spring:
           uri: lb:http://SRITEL-SERVICE
           predicates:
             - Path=/api/v1/service/**
+
+      globalcors:
+        cors-configurations:
+          '[/**]': # Apply CORS to all paths
+            allowedOrigins: "http://localhost:3000" # Your frontend origin
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - "*"
+            allowCredentials: true # Allow credentials (such as cookies or authorization headers)
+
   security:
     oauth2:
       resourceserver:
