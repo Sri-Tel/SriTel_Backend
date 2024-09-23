@@ -36,7 +36,7 @@ services:
       - sritel-network
 
   billing-service:
-    build: ./Services/billing-services # Ensure this path is correct
+    build: ./Services/billing # Ensure this path is correct
     container_name: billing-service
     depends_on:
       - config-server
@@ -45,7 +45,7 @@ services:
       - sritel-network
 
   customer-service:
-    build: ./Services/customer-services # Ensure this path is correct
+    build: ./Services/customer # Ensure this path is correct
     container_name: customer-service
     depends_on:
       - config-server
@@ -54,7 +54,7 @@ services:
       - sritel-network
 
   payment-service:
-    build: ./Services/payment-services # Ensure this path is correct
+    build: ./Services/payment # Ensure this path is correct
     container_name: payment-service
     depends_on:
       - config-server
