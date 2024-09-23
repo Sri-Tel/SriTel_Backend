@@ -25,7 +25,6 @@ replay_pid*
 
 #spring boot
 target/
-mvnw
 mvnw.cmd
 mvn
 
