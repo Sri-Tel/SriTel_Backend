@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  config-server:
+    build: ./Services/config-server
+    container_name: config-server
+    networks:
+      - sritel-network
+
+  discovery-server:
+    build: ./Services/discovery-server
+    container_name: discovery-server
+    depends_on:
+      - config-server
+    networks:
+      - sritel-network
+      - app-network
+
+  api-gateway:
+    build: ./Services/api-gateway
+    container_name: api-gateway
+    depends_on:
+      - config-server
+      - discovery-server
+    networks:
+      - sritel-network
+      - app-network
+
+  sritel-service:
+    build: ./Services/sritel-services # Ensure this path is correct
+    container_name: sritel-service
+    depends_on:
+      - config-server
+      - discovery-server
+    networks:
+      - sritel-network
+
+  billing-service:
+    build: ./Services/billing-services # Ensure this path is correct
+    container_name: billing-service
+    depends_on:
+      - config-server
+      - discovery-server
+    networks:
+      - sritel-network
+
+  customer-service:
+    build: ./Services/customer-services # Ensure this path is correct
+    container_name: customer-service
+    depends_on:
+      - config-server
+      - discovery-server
+    networks:
+      - sritel-network
+
+  payment-service:
+    build: ./Services/payment-services # Ensure this path is correct
+    container_name: payment-service
+    depends_on:
+      - config-server
+      - discovery-server
+    networks:
+      - sritel-network
+
+networks:
+  sritel-network:
+    driver: bridge
+  app-network:
+    external: true
