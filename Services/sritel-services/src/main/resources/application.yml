@@ -1,6 +1,6 @@
 spring:
     config:
-        import: optional:configserver:http://config-server:8888
+        import: optional:configserver:${CONFIGHOST}
     application:
         name: sritel-service
 

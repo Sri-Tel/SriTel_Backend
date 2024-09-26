@@ -6,4 +6,4 @@ while ! nc -z config-server 8888 ; do
 done
 
 
-java -jar /home/app/sritel.jar
+java -jar /home/app/sritel.jar --CONFIGHOST="http://config-server:8888"

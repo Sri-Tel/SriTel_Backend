@@ -9,4 +9,4 @@ while ! nc -z discovery-server 8761 ; do
     sleep 3
 done
 
-java -jar /home/app/sritel.jar
+java -jar /home/app/sritel.jar --CONFIGHOST="http://config-server:8888"
