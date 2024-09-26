@@ -79,7 +79,7 @@ services:
     container_name: payment-service
     depends_on:
       - config-server
-      - discovery-server
+      - discovery-server  
     ports:
       - "8099:8099"
     networks:
