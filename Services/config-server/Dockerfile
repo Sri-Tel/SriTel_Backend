@@ -10,6 +10,7 @@ FROM bellsoft/liberica-openjre-alpine:21
 
 WORKDIR /home/app
 EXPOSE 8888
+RUN apk --no-cache add curl
 SHELL ["/bin/sh", "-c"]
-ENTRYPOINT java -jar ./sritel.jar 
 COPY --from=builder /home/app/sritel/target/*.jar sritel.jar
+CMD ["java", "-jar", "sritel.jar"]

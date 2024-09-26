@@ -11,5 +11,7 @@ FROM bellsoft/liberica-openjre-alpine:21
 WORKDIR /home/app
 EXPOSE 8099
 SHELL ["/bin/sh", "-c"]
-ENTRYPOINT java -jar ./sritel.jar 
+
 COPY --from=builder /home/app/sritel/target/*.jar sritel.jar
+COPY entry.sh .
+RUN chmod 755 /home/app/entry.sh
