@@ -14,7 +14,6 @@ services:
       - config-server
     networks:
       - sritel-network
-      - app-network
 
   api-gateway:
     build: ./Services/api-gateway
@@ -24,7 +23,8 @@ services:
       - discovery-server
     networks:
       - sritel-network
-      - app-network
+    ports:
+      - "8222:8222"
 
   sritel-service:
     build: ./Services/sritel-services # Ensure this path is correct
@@ -65,5 +65,3 @@ services:
 networks:
   sritel-network:
     driver: bridge
-  app-network:
-    external: true
