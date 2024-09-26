@@ -3,12 +3,14 @@ package com.sritel.billing.services;
 import com.sritel.billing.clients.CustomerClient;
 import com.sritel.billing.clients.MobileServiceClient;
 import com.sritel.billing.dto.BillResponse;
+import com.sritel.billing.dto.Customer;
+import com.sritel.billing.dto.CustomerServicesResponse;
 import com.sritel.billing.entity.Bills;
+import com.sritel.billing.entity.ServiceStatus;
+import com.sritel.billing.enums.UserGroup;
 import com.sritel.billing.repository.BillsRepository;
-import com.sritel.customer.entity.Customer;
-import com.sritel.customer.enums.UserGroup;
-import com.sritel.sritel_services.Response.CustomerServicesResponse;
-import com.sritel.sritel_services.enums.ServiceStatus;
+
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -56,16 +58,16 @@ public class BillingService {
             LocalDate startOfMonth = currentMonth.atDay(1);
             LocalDate startOfNextMonth = currentMonth.plusMonths(1).atDay(1);
 
-            List<Bills> existingBills = billingRepository.findBillsForCurrentMonth(customer.getId(), startOfMonth, startOfNextMonth);
+            List<Bills> existingBills = billingRepository.findBillsForCurrentMonth(customer.getSritelNo(), startOfMonth, startOfNextMonth);
 
             // Skip bill generation if a bill for the current month already exists
             if (!existingBills.isEmpty()) {
-                System.out.println("Bill already exists for user: " + customer.getId() + " for the current month.");
+                System.out.println("Bill already exists for user: " + customer.getSritelNo() + " for the current month.");
                 continue;
             }
 
             //Get services for user
-            List<CustomerServicesResponse> customerServices = mobileServiceClient.getServicesByUser(customer.getId());
+            List<CustomerServicesResponse> customerServices = mobileServiceClient.getServicesByUser(customer.getSritelNo());
 
 //            if no services are registered to cutomer
             if (customerServices.size() <= 0) {
@@ -81,7 +83,7 @@ public class BillingService {
 
 
             Bills newBill = Bills.builder()
-                    .userId(customer.getId())
+                    .userId(customer.getSritelNo())
                     .amount(totalAmount)  // Calculate amount based on logic
                     .status("PENDING")
                     .billingDate(LocalDate.now())
@@ -89,7 +91,7 @@ public class BillingService {
                     .build();
 
             billingRepository.save(newBill);  // Save the bill
-            System.out.println("Generated bill for user: " + customer.getId());
+            System.out.println("Generated bill for user: " + customer.getSritelNo());
         }
     }
 
