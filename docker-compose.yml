@@ -24,6 +24,8 @@ services:
       context: ./Services/api-gateway
       dockerfile: Dockerfile
     container_name: api-gateway
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     depends_on:
       - config-server
       - discovery-server
@@ -37,6 +39,8 @@ services:
       context: ./Services/sritel-services
       dockerfile: Dockerfile
     container_name: sritel-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     depends_on:
       - config-server
       - discovery-server
@@ -51,6 +55,8 @@ services:
       context: ./Services/billing
       dockerfile: Dockerfile
     container_name: billing-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     depends_on:
       - config-server
       - discovery-server
@@ -64,6 +70,8 @@ services:
       context: ./Services/customer
       dockerfile: Dockerfile
     container_name: customer-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     depends_on:
       - config-server
       - discovery-server
@@ -77,6 +85,8 @@ services:
       context: ./Services/payment
       dockerfile: Dockerfile
     container_name: payment-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     depends_on:
       - config-server
       - discovery-server  
