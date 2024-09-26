@@ -2,36 +2,30 @@ services:
   config-server:
     build: ./Services/config-server
     container_name: config-server
-    volumes:
-      - ./entry :/home/app/sritel/entry
     ports:
       - "8888:8888"
     networks:
       - sritel-network
 
   discovery-server:
-    build: ./Services/discovery-server
+    build:
+      context: ./Services/discovery-server
+      dockerfile: Dockerfile
     container_name: discovery-server
     depends_on:
       - config-server
     ports:
       - "8761:8761"
-    volumes:
-      - ./entry :/home/app/sritel/entry
-    command:
-      - chmod 755 /home/app/sritel/entry
-    entrypoint: /home/app/sritel/entry/discoverentry.sh
+    entrypoint: /home/app/sritel/entry.sh
     networks:
       - sritel-network
 
   api-gateway:
-    build: ./Services/api-gateway
+    build: 
+      context: ./Services/api-gateway
+      dockerfile: Dockerfile
     container_name: api-gateway
-    volumes:
-      - ./entry :/home/app/sritel/entry
-    entrypoint: /home/app/sritel/entry/entry.sh
-    command: 
-      - chmod +x /home/app/sritel/entry/entry.sh
+    entrypoint: /home/app/sritel/entry.sh
     depends_on:
       - config-server
       - discovery-server
@@ -41,16 +35,14 @@ services:
       - sritel-network
 
   sritel-service:
-    build: ./Services/sritel-services
+    build:
+      context: ./Services/sritel-services
+      dockerfile: Dockerfile
     container_name: sritel-service
-    volumes:
-      - ./entry :/home/app/sritel/entry
-    command:
-      - chmod +x /home/app/sritel/entry/entry.sh
     depends_on:
       - config-server
       - discovery-server
-    entrypoint: /home/app/sritel/entry/entry.sh
+    entrypoint: /home/app/sritel/entry.sh
     ports:
       - "9010:9010"
     networks:
@@ -58,48 +50,42 @@ services:
 
 
   billing-service:
-    build: ./Services/billing 
+    build:
+      context: ./Services/billing
+      dockerfile: Dockerfile
     container_name: billing-service
-    volumes:
-      - ./entry :/home/app/sritel/entry
-    command:
-      - chmod +x /home/app/sritel/entry/entry.sh
     depends_on:
       - config-server
       - discovery-server
-    entrypoint: /home/app/sritel/entry/entry.sh
+    entrypoint: /home/app/sritel/entry.sh
     ports:
       - "9000:9000"
     networks:
       - sritel-network
 
   customer-service:
-    build: ./Services/customer 
+    build:
+      context: ./Services/customer
+      dockerfile: Dockerfile
     container_name: customer-service
-    volumes:
-      - ./entry :/home/app/sritel/entry
-    command:
-      - chmod +x /home/app/sritel/entry/entry.sh
     depends_on:
       - config-server
       - discovery-server
-    entrypoint: /home/app/sritel/entry/entry.sh
+    entrypoint: /home/app/sritel/entry.sh
     ports:
       - "8090:8090"
     networks:
       - sritel-network
 
   payment-service:
-    build: ./Services/payment 
+    build:
+      context: ./Services/payment
+      dockerfile: Dockerfile
     container_name: payment-service
-    volumes:
-      - ./entry :/home/app/sritel/entry
-    command:
-      - chmod +x /home/app/sritel/entry/entry.sh
     depends_on:
       - config-server
       - discovery-server
-    entrypoint: /home/app/sritel/entry/entry.sh
+    entrypoint: /home/app/sritel/entry.sh
     ports:
       - "8099:8099"
     networks:
