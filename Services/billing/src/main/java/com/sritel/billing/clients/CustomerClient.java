@@ -1,8 +1,8 @@
 package com.sritel.billing.clients;
 
-import com.sritel.customer.entity.Customer;
-import com.sritel.customer.enums.UserGroup;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.sritel.billing.dto.Customer;
+import com.sritel.billing.enums.UserGroup;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
