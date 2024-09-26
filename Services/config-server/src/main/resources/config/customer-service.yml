@@ -4,3 +4,8 @@ spring:
       uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/customer
 server:
   port: 8090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka

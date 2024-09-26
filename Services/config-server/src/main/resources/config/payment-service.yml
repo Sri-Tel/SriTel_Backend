@@ -12,3 +12,8 @@ payhere:
   merchant:
     id: 1226457
     secret: Mzk1NTA4MDI3NjUzNDU4ODA2MDIyMjEyMDMyMzIyMDUxMjI5MzY5
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka
