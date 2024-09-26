@@ -1,16 +1,8 @@
 spring:
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: email-notification-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    template:
-      default-topic: billing-topic
-
-server:
-  port: 8989
+  config:
+    import: configserver:${CONFIGHOST}
+  application:
+    name: pub-sub
+  cloud:
+    compatibility-verifier:
+      enabled: false

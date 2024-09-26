@@ -98,6 +98,42 @@ services:
     networks:
       - sritel-network
 
+  pub-sub:
+    build:
+      context: ./Services/pub-sub
+      dockerfile: Dockerfile
+    container_name: pub-sub
+    environment:
+      - SERVER_PORT=8989
+    depends_on:
+      - config-server
+      - discovery-server  
+      - kafka
+      - zookeeper
+    ports:
+      - "8989:8989"
+    networks:
+      - sritel-network
+
+  smtp-mail-server:
+    build:
+      context: ./Services/smtp-mail-server
+      dockerfile: Dockerfile
+    container_name: smtp-mail-server
+    environment:
+      - SERVER_PORT=8990
+    depends_on:
+      - config-server
+      - discovery-server  
+      - kafka
+      - zookeeper
+    ports:
+      - "8990:8990"
+    networks:
+      - sritel-network
+
+  
+
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:

@@ -1,25 +1,8 @@
-#spring:
-#  config:
-#    import: envproperties.yml
-
 spring:
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: <email address here>
-    password: <app password here>
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
-
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: email-notification-group
-      auto-offset-reset: earliest
-    template:
-      default-topic: billing-topic
+  config:
+    import: configserver:${CONFIGHOST} 
+  application:
+    name: smtp-mail-server
+  cloud:
+    compatibility-verifier:
+      enabled: false
