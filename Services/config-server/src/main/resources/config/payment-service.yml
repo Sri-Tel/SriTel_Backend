@@ -1,11 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/billing
-      databases:
-        billing: billing
-        customer: customer
-        service: service
+      uri: mongodb+srv://sritel:sritel@cluster0.dzsjndd.mongodb.net/payment?retryWrites=true&w=majority&appName=sritel
 
 server:
   port: 8099
