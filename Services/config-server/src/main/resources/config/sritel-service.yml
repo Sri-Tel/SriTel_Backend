@@ -2,6 +2,10 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://jayathilakeravishan:Pq5OcwI88iJhXjDe@customer.od53w.mongodb.net/service
+      databases:
+        billing: billing
+        customer: customer
+        service: service
 server:
   port: 9010
 

@@ -5,6 +5,7 @@ spring:
       databases:
         billing: billing
         customer: customer
+        service: service
 
 server:
   port: 8099
