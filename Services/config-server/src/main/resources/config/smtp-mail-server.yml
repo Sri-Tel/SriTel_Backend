@@ -20,10 +20,10 @@ spring:
     template:
       default-topic: billing-topic
 
-  eureka:
-    client:
-      service-url:
-        defaultZone: http://discovery-server:8761/eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka
 
-  server:
+server:
   port: 8990

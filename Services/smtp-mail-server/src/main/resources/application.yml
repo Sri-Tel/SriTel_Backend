@@ -1,6 +1,6 @@
 spring:
   config:
-    import: configserver:${CONFIGHOST} 
+    import: optional:configserver:${CONFIGHOST} 
   application:
     name: smtp-mail-server
   cloud:
