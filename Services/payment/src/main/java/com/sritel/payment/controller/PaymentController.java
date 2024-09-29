@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/payment")
 @CrossOrigin(origins = "*")
+@RequestMapping("/api/payment")
 public class PaymentController {
 
     private String merchantId = "1226457";
