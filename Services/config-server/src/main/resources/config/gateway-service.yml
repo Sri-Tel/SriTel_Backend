@@ -26,9 +26,10 @@ spring:
             - Path=/api/v1/service/**
 
       globalcors:
+        add-to-simple-url-handler-mapping: true
         cors-configurations:
-          '[/**]': # Apply CORS to all paths
-            allowedOrigins: "http://localhost:3000" 
+          '[/**]': 
+            allowedOrigins: "*" 
             allowedMethods:
               - GET
               - POST
@@ -36,7 +37,7 @@ spring:
               - DELETE
             allowedHeaders:
               - "*"
-            allowCredentials: true # Allow credentials (such as cookies or authorization headers)
+            allowCredentials: true 
 
   security:
     oauth2:

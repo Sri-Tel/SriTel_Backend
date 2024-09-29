@@ -19,6 +19,7 @@ import com.sritel.customer.DTO.CustomerRequest;
 @RestController
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class Controller {
     
     private final CustomerService service;
