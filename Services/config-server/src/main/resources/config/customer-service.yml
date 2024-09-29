@@ -1,8 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://sritel:sritel@cluster0.dzsjndd.mongodb.net/payment?retryWrites=true&w=majority&appName=sritel
-
+      uri: mongodb+srv://sritel:sritel@cluster0.dzsjndd.mongodb.net/customer?retryWrites=true&w=majority&appName=sritel
+      
 server:
   port: 8090
 

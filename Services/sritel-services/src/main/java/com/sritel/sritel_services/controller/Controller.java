@@ -47,8 +47,10 @@ public class Controller {
     }
 
     @GetMapping
-    public ResponseEntity<List<Service>> getServices() {
-        return  ResponseEntity.ok(service.getAllServices());
+
+    public ResponseEntity<List<Service>> getAllCustomerServices() {
+        return ResponseEntity.ok(service.getAllCustomerServices());
+
     }
 
 }

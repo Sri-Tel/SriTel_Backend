@@ -34,11 +34,12 @@ spring:
               - PUT
               - DELETE
             allowedHeaders:
-              - "*"
-            allowCredentials: true
-      
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
+
+              - "Authorization"
+              - "Content-Type"
+            exposedHeaders: 
+              - "Authorization"
+            allowCredentials: true # Allow credentials (such as cookies or authorization headers)
 
   security:
     oauth2:

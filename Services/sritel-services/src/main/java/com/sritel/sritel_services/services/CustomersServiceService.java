@@ -70,7 +70,10 @@ public class CustomersServiceService {
         }
     }
 
-    public List<Service> getAllServices() {
+
+    public List<Service> getAllCustomerServices() {
+        // TODO Auto-generated method stub
         return serviceRepositary.findAll();
+       
     }
 }
