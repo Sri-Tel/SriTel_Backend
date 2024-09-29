@@ -33,7 +33,7 @@ services:
       - config-server
       - discovery-server
     ports:
-      - "8222:8222"
+      - "8223:8222"
     networks:
       - sritel-network
 
@@ -161,6 +161,22 @@ services:
     networks:
       - sritel-network
 
+  webserver:
+    image: caddy:alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "8222:80"
+    volumes:
+      - ./caddy-conf:/etc/caddy/
+      - caddy-config:/config
+      - caddy-data:/data
+    networks:
+      - sritel-network
+
+volumes:
+  caddy-config:
+  caddy-data:
       
 
 
