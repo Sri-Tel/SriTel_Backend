@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "pub-sub")
 public interface PubSubClient {
 
-    @PostMapping("api/billing/publish")
+    @PostMapping("/api/billing/publish")
     void publish(@RequestBody PublishRequest publishRequest);
 
 }

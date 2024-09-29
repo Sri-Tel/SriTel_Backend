@@ -24,6 +24,10 @@ spring:
           uri: lb:http://SRITEL-SERVICE
           predicates:
             - Path=/api/v1/service/**
+        - id: pub-sub
+          uri: lb:http://PUB-SUB
+          predicates:
+            - Path=/api/billing/**
       globalcors:
         cors-configurations:
           '[/**]': # Apply CORS to all paths
