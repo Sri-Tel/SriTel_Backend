@@ -75,4 +75,8 @@ public class CustomerService {
     public List<Customer> getCustomerByUserGroup(UserGroup userGroup) {
         return repository.findByUserGroup(userGroup);
     }
+
+    public CustomerResponse getCustomerBySriTel(String sritelNo) {
+        return  repository.findBySritelNo(sritelNo);
+    }
 }

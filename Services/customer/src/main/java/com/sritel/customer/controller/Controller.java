@@ -46,6 +46,12 @@ public class Controller {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/getCustomerBySritelNo/{sritelNo}")
+    public ResponseEntity<CustomerResponse> getCustomerByNumber(@PathVariable String sritelNo) {
+        CustomerResponse response = service.getCustomerBySriTel(sritelNo);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("userGroup/{userGroup}")
     public ResponseEntity<List<Customer>> getCustomerByUserGroup(@PathVariable UserGroup userGroup) {
         List<Customer> response = service.getCustomerByUserGroup(userGroup);

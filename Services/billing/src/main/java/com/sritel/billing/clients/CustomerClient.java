@@ -16,6 +16,9 @@ public interface CustomerClient {
     @GetMapping("/api/v1/customer/{userId}")
     Customer getCustomerById(@PathVariable("userId") String userId);
 
+    @GetMapping("api/v1/customer/getCustomerBySritelNo/{sritelNo}")
+    Customer getCustomerBySritelNo(@PathVariable("sritelNo") String sritelNo);
+
     @GetMapping("/api/v1/customer")
     List<Customer> getCustomers();
 

@@ -1,4 +1,5 @@
 package com.sritel.customer.repository;
+import com.sritel.customer.DTO.CustomerResponse;
 import com.sritel.customer.entity.Customer;
 import com.sritel.customer.enums.UserGroup;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -12,4 +13,6 @@ public interface CustomerRepository extends MongoRepository<Customer, String> {
     long countByUserGroup(String group1);
 
     List<Customer> findByUserGroup(UserGroup userGroup);
+
+    CustomerResponse findBySritelNo(String sritelNo);
 }

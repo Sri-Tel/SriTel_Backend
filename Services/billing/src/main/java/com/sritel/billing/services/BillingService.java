@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
+import com.sritel.billing.clients.PubSubClient;
+import com.sritel.billing.dto.PublishRequest;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -33,6 +36,7 @@ public class BillingService {
     private final BillsRepository billingRepository;
     private final CustomerClient customerClient;
     private final MobileServiceClient mobileServiceClient;
+    private final PubSubClient pubSubClient;
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -135,5 +139,18 @@ public class BillingService {
         } else {
             System.out.println("No bill found with the given ID.");
         }
+
+        Optional<Bills> bill = billingRepository.findById(billId);
+        if (bill.isPresent()) {
+            Customer customer = customerClient.getCustomerBySritelNo(bill.get().getUserId());
+            if (customer != null) {
+                PublishRequest request = new PublishRequest();
+                request.setAmount(String.valueOf(bill.get().getAmount()));
+                request.setEmail(String.valueOf(customer.getEmail()));
+
+                pubSubClient.publish(request);
+            }
+        }
+
     }
 }
