@@ -1,8 +1,22 @@
 package com.sritel.billing.services;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.client.result.UpdateResult;
 import com.sritel.billing.clients.CustomerClient;
 import com.sritel.billing.clients.MobileServiceClient;
-import com.sritel.billing.dto.BillResponse;
 import com.sritel.billing.dto.Customer;
 import com.sritel.billing.dto.CustomerServicesResponse;
 import com.sritel.billing.entity.Bills;
@@ -10,15 +24,7 @@ import com.sritel.billing.entity.ServiceStatus;
 import com.sritel.billing.enums.UserGroup;
 import com.sritel.billing.repository.BillsRepository;
 
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +33,8 @@ public class BillingService {
     private final BillsRepository billingRepository;
     private final CustomerClient customerClient;
     private final MobileServiceClient mobileServiceClient;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     // Automatically generate bills once a month (you can adjust the cron expression)
 //    @Scheduled(cron = "0 0 2 1 * ?")  // Runs at 02:00 AM on the 1st of every month
@@ -108,7 +116,24 @@ public class BillingService {
     }
 
     public void updateBillPayment(String billId) {
-        System.out.println(billId);
-        billingRepository.updateBillStatusById(billId, "PAID");
+        // Logging the billId for debugging purposes
+        System.out.println("Updating payment for Bill ID: " + billId);
+
+        // Create a query to find the bill by ID
+       Query query = new Query(Criteria.where("_id").is(new ObjectId(billId)));
+       System.out.println("Mongo Query: " + query.toString());
+
+        // Create an update object to set the status to 'PAID'
+        Update update = new Update().set("status", "PAID");
+
+        // Perform the update operation
+        UpdateResult result = mongoTemplate.updateFirst(query, update, "bill");
+
+        // Check if the update was successful
+        if (result.getMatchedCount() > 0) {
+            System.out.println("Bill status updated to 'PAID' successfully.");
+        } else {
+            System.out.println("No bill found with the given ID.");
+        }
     }
 }
