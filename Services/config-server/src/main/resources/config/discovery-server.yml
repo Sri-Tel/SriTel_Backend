@@ -8,4 +8,4 @@ eureka:
       defaultZone: http://discovery-server:8761/eureka/
       
 server:
-  port: 8761
+  port: 876

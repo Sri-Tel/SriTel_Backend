@@ -35,7 +35,10 @@ spring:
               - PUT
               - DELETE
             allowedHeaders:
-              - "*"
+              - "Authorization"
+              - "Content-Type"
+            exposedHeaders: 
+              - "Authorization"
             allowCredentials: true # Allow credentials (such as cookies or authorization headers)
 
   security:

@@ -45,4 +45,9 @@ public class Controller {
         return ResponseEntity.ok(res);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Service>> getAllCustomerServices() {
+        return ResponseEntity.ok(service.getAllCustomerServices());
+    }
+
 }
