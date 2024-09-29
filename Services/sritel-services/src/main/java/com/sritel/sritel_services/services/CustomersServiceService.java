@@ -23,6 +23,15 @@ public class CustomersServiceService {
 
 
     public CustomersService addCustomerService(CustomersService customersService) {
+//        check if service is allready active
+        Optional<CustomersService> getcustmerservice = customersServiceRepositary.findByCustomerIdAndServiceId(customersService.getCustomerId(), customersService.getServiceId());
+
+//       remove it from customerdata
+        if (getcustmerservice.isPresent()) {
+            customersServiceRepositary.deleteByCustomerIdAndServiceId(customersService.getCustomerId(), customersService.getServiceId());
+            return null;
+        }
+
         return  customersServiceRepositary.save(customersService);
     }
 
