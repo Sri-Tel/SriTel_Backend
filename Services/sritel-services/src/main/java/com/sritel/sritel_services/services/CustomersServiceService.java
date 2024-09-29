@@ -69,4 +69,10 @@ public class CustomersServiceService {
             throw new RuntimeException("Customer service not found for the given customerId and serviceId");
         }
     }
+
+    public List<Service> getAllCustomerServices() {
+        // TODO Auto-generated method stub
+        return serviceRepositary.findAll();
+       
+    }
 }
