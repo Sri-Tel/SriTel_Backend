@@ -13,4 +13,6 @@ public interface CustomerServiceRepositary extends MongoRepository<CustomersServ
     List<CustomersService> findByCustomerId(String userId);
 
     Optional<CustomersService> findByCustomerIdAndServiceId(String customerId, String serviceId);
+
+    void deleteByCustomerIdAndServiceId(String customerId, String serviceId);
 }
