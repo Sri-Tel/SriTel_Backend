@@ -107,4 +107,8 @@ public class BillingService {
         return billingRepository.findAllByUserId(userId);
     }
 
+    public void updateBillPayment(String billId) {
+        System.out.println(billId);
+        billingRepository.updateBillStatusById(billId, "PAID");
+    }
 }

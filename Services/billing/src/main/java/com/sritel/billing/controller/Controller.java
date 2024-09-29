@@ -43,4 +43,10 @@ public class Controller {
     public void createBills(@PathVariable String userId){
         billingService.getBillingsByUserId(userId);
     }
+
+    @PatchMapping("/updatePayment/{bill_id}")
+    public ResponseEntity<String> updatePayment(@PathVariable String bill_id){
+        billingService.updateBillPayment(bill_id);
+        return ResponseEntity.ok("ok");
+    }
 }
