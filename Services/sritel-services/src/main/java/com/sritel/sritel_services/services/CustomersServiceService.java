@@ -69,4 +69,8 @@ public class CustomersServiceService {
             throw new RuntimeException("Customer service not found for the given customerId and serviceId");
         }
     }
+
+    public List<Service> getAllServices() {
+        return serviceRepositary.findAll();
+    }
 }
