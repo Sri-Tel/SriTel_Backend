@@ -104,7 +104,7 @@ public class BillingService {
     }
 
     public List<Bills> getBillingsByUserId(String userId) {
-        return billingRepository.findByUserId(userId);
+        return billingRepository.findAllByUserId(userId);
     }
 
 }

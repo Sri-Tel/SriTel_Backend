@@ -14,6 +14,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/service")
 @RequiredArgsConstructor
 public class Controller {
@@ -46,8 +47,8 @@ public class Controller {
     }
 
     @GetMapping
-    public ResponseEntity<List<Service>> getAllCustomerServices() {
-        return ResponseEntity.ok(service.getAllCustomerServices());
+    public ResponseEntity<List<Service>> getServices() {
+        return  ResponseEntity.ok(service.getAllServices());
     }
 
 }
